@@ -20,12 +20,13 @@ pipeline {
       steps {
         script {
           try {
-            KERNEL_VERSION = sh (script: "uname -r", returnStdout: true)
+            KERNEL_VERSION = sh (script: "lsb_release -a", returnStdout: true)
           } catch(err) {
             echo "CAUGHT ERROR: ${err}"
             throw err
           }
         }
+        
       }
     }
     stage('Say Kernel') {
@@ -38,12 +39,14 @@ pipeline {
     MY_NAME = 'Khai'
     TEST_USER = credentials('test-user')
   }
-  parameters {
-    string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
-  }
   post {
     aborted {
       echo 'Why didn\'t you push my button?'
+      
     }
+    
+  }
+  parameters {
+    string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
 }
