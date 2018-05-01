@@ -20,7 +20,7 @@ pipeline {
       steps {
         script {
           try {
-            KERNEL_VERSION = sh (script: "lsb_release -a", returnStdout: true)
+            KERNEL_VERSION = sh (script: "hostname", returnStdout: true)
           } catch(err) {
             echo "CAUGHT ERROR: ${err}"
             throw err
